@@ -28,7 +28,7 @@ module.exports = function(grunt) {
           {
               expand: true,
               flatten: true,
-              src: ['bower_components/font-awesome/fonts/*'],
+              src: ['bower_components/font-awesome/fonts/*.woff'],
               dest: 'sphinx_rtd_theme/static/fonts/',
               filter: 'isFile'
           }
@@ -127,6 +127,10 @@ module.exports = function(grunt) {
       },
       build_sphinx: {
         cmd: 'sphinx-build docs/ docs/build'
+      },
+      fa_diet: {
+        /* Hacky way to prevent extraneous request for font formats we don't include */
+        cmd: 'sed -i -e "/^\\s\\+src:.*[^;]$/d" -e "/^\\s\\+url/d" -e "s/\\(src:.*\\)\.eot/\\1.woff/" bower_components/font-awesome/scss/_path.scss'
       }
     },
     clean: {
@@ -170,6 +174,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-browserify');
 
-  grunt.registerTask('default', ['exec:bower_update','clean','copy:fonts','sass:dev','browserify:dev','usebanner','exec:build_sphinx','connect','open','watch']);
-  grunt.registerTask('build', ['exec:bower_update','clean','copy:fonts','sass:build','browserify:build','uglify','usebanner','exec:build_sphinx']);
+  grunt.registerTask('default', ['exec:bower_update','clean','copy:fonts','exec:fa_diet','sass:dev','browserify:dev','usebanner','exec:build_sphinx','connect','open','watch']);
+  grunt.registerTask('build', ['exec:bower_update','clean','copy:fonts','exec:fa_diet','sass:build','browserify:build','uglify','usebanner','exec:build_sphinx']);
 }
