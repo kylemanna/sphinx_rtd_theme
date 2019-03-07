@@ -31,20 +31,6 @@ module.exports = function(grunt) {
               src: ['bower_components/font-awesome/fonts/*'],
               dest: 'sphinx_rtd_theme/static/fonts/',
               filter: 'isFile'
-          },
-          {
-              expand: true,
-              flatten: true,
-              src: ['fonts/Lato/*'],
-              dest: 'sphinx_rtd_theme/static/fonts/Lato',
-              filter: 'isFile'
-          },
-          {
-              expand: true,
-              flatten: true,
-              src: ['fonts/RobotoSlab/*'],
-              dest: 'sphinx_rtd_theme/static/fonts/RobotoSlab/',
-              filter: 'isFile'
           }
         ]
       }
